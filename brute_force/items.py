@@ -7,6 +7,7 @@
 from scrapy.item import Item, Field
 
 class BruteForceItem(Item):
-    the_strokes = Field()
-    character = Field()
+    a_alpha = Field()    
+    c_seperator = Field()
+    b_the_strokes = Field()
 

@@ -13,5 +13,7 @@ BOT_NAME = 'brute_force'
 SPIDER_MODULES = ['brute_force.spiders']
 NEWSPIDER_MODULE = 'brute_force.spiders'
 
+ITEM_PIPELINES = {'brute_force.pipelines.BruteForcePipeline': 300 }
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'brute_force (+http://www.yourdomain.com)'

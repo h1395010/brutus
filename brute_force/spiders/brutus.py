@@ -3,6 +3,7 @@ from scrapy.selector import HtmlXPathSelector
 from scrapy.http import Request
 from brute_force.items import BruteForceItem
 from urlparse import urljoin
+from collections import OrderedDict
 
 class DmozSpider(BaseSpider):
     name = "brutus"
@@ -12,13 +13,14 @@ class DmozSpider(BaseSpider):
     def parse(self, response):
         for url in response.css('td a::attr(href)').extract():
             cb = self.parse if '/zi/bushou' in url.lower() else self.parse_item
-            yield Request(urljoin(response.url, url), callback=cb)
+            yield Request(urljoin(response.url, url), callback=cb)   
 
     def parse_item(self, response):
         hxs = HtmlXPathSelector(response)
         item =  BruteForceItem()
-        item["the_strokes"] = hxs.xpath('//*[@id="div_a1"]/div[2]').extract()
-        item["character"] = hxs.xpath('//*[@id="div_a1"]/div[3]').extract()
+        item["a_alpha"] = hxs.xpath('//*[@id="div_a1"]/table').extract()
+        item["c_seperator"] = "#######################"
+        item["b_the_strokes"] = hxs.xpath('//*[@id="div_a1"]/div[2]/text()[2]').extract()
         return item
 
 
